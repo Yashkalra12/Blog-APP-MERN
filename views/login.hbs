@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/">Continue as Guest</a></li>
+        </ul>
+    </nav>
+    <h1>Login Page</h1>
+    <form action="/login" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required /><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required /><br><br>
+
+        <button type="submit">Log In</button>
+    </form><br>
+
+    <p>Not registered? <a href="/signup">Click to register</a></p>
+</body>
+
+</html>

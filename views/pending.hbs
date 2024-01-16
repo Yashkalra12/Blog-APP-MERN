@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending Blogs</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    div {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    p {
+      color: #555;
+    }
+
+    button {
+      background-color: #333;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    hr {
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="/home">Home Page</a></li>
+      <li><a href="/myblogs">My Blogs</a></li>
+      <li><a href="/allblogs">All Blogs</a></li>
+      <li><button><a href="/logout">Log Out</a></button></li>
+    </ul>
+  </nav>
+  <h1>Pending Blogs</h1>
+  {{#each pendings as |blog|}}
+  <div>
+    <h3>{{blog.title}}</h3>
+    <p>{{blog.content}}</p>
+    <h3>Author: {{blog.user.username}}</h3>
+    <button onclick="approve('{{blog.id}}',this)">Approve</button>
+    <button onclick="deny('{{blog._id}}','{{blog.user._id}}',this)">Deny</button>
+    <hr />
+  </div>
+  {{/each}}
+  <script>
+    const approve = async (blogId, button) => {
+      const listItem = button.parentElement;
+      const list = listItem.parentElement;
+      list.removeChild(listItem);
+
+      fetch('http://localhost:3000/addpending', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: blogId }),
+      })
+        .then(() => {
+          console.log("Blog verified!!!");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
+
+    const deny = (blogId, userId, button) => {
+      const listItem = button.parentElement;
+      const list = listItem.parentElement;
+      list.removeChild(listItem);
+
+      fetch('http://localhost:3000/removepending', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: blogId, user: userId }),
+      })
+        .then(() => {
+          console.log("Blog Denied and Removed!!!");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
+  </script>
+</body>
+
+</html>
